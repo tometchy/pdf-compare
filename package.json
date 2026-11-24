@@ -1,0 +1,10 @@
+{
+  "name": "pdf-compare",
+  "private": true,
+  "scripts": {
+    "test": "node scripts/build.mjs tests/pickering.json docs --no-vendor && node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.5"
+  }
+}

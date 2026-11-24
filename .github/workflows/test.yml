@@ -1,0 +1,22 @@
+name: Test PDF Compare
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: node scripts/build.mjs tests/simeon.json dist
+      - run: test -s dist/vendor/pdfjs/pdf.min.mjs && test -s dist/vendor/pdfjs/pdf.worker.min.mjs && test -s dist/vendor/pdfjs/LICENSE
